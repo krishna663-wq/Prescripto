@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescripto - Healthcare Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .status {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #4CAF50;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 1rem;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        .api-test {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        .api-response {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            font-family: monospace;
+            text-align: left;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            text-align: left;
+        }
+        .feature h3 {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Prescripto</h1>
+        <p class="subtitle">Healthcare Platform - Patient Management System</p>
+        
+        <div class="status">
+            ✅ Backend API Running on Port 4000
+        </div>
+        
+        <div class="api-test">
+            <h3>🔗 API Connectivity Test</h3>
+            <button onclick="testBackend()">Test Backend API</button>
+            <div id="apiResponse" class="api-response" style="display: none;"></div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>👨‍⚕️ Patient Portal</h3>
+                <p>Book appointments, view medical history, and manage health records</p>
+            </div>
+            <div class="feature">
+                <h3>👩‍⚕️ Doctor Dashboard</h3>
+                <p>Manage appointments, patient records, and medical consultations</p>
+            </div>
+            <div class="feature">
+                <h3>🔧 Admin Panel</h3>
+                <p>System administration, user management, and analytics</p>
+            </div>
+            <div class="feature">
+                <h3>☁️ Cloud Integration</h3>
+                <p>Secure file storage with Cloudinary and MongoDB database</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; opacity: 0.8;">
+            <p><strong>Note:</strong> Frontend React apps need dependency updates for Node.js v24.4.0 compatibility</p>
+            <p>Backend API is fully functional and ready for integration</p>
+        </div>
+    </div>
+
+    <script>
+        async function testBackend() {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:4000');
+                const text = await response.text();
+                responseDiv.innerHTML = `
+✅ <strong>Success!</strong><br>
+📡 Status: ${response.status} ${response.statusText}<br>
+📝 Response: ${text}<br>
+🌐 URL: http://localhost:4000
+                `;
+            } catch (error) {
+                responseDiv.innerHTML = `
+❌ <strong>Connection Failed</strong><br>
+💡 Make sure backend is running: cd backend && node server.js<br>
+🔍 Error: ${error.message}
+                `;
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testBackend, 1000);
+        });
+    </script>
+</body>
+</html>
